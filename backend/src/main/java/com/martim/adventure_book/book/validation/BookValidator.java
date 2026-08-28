@@ -14,9 +14,9 @@ public class BookValidator {
     /**
      * Validations that do not require sectionsById map.
      * Must be executed before building the map so duplicate section IDs are reported
-     * by the validator instead of the map creation (JsonBookRepository.buildSectionIndex()).
+     * by the validator instead of the map creation (JsonBookRepository.buildSectionSectionMap()).
      */
-    public void validateBeforeIndex(Book book) {
+    public void validateBeforeSectionMap(Book book) {
         validateMetadata(book); // extra
         validateHasSections(book); // extra
         validateRequiredAndUniqueFields(book); // extra
@@ -26,7 +26,7 @@ public class BookValidator {
      * Validations that depend on the sectionsById map.
      * Must be executed after the map is built because it performs section lookups by ID.
      */
-    public void validateAfterIndex(Book book) {
+    public void validateAfterSectionMap(Book book) {
         validateSingleBeginning(book);
         validateEnding(book);
         validateNonEndingSections(book);
