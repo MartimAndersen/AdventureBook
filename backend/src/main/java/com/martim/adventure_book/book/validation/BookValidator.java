@@ -4,7 +4,6 @@ import com.martim.adventure_book.book.domain.Book;
 import com.martim.adventure_book.book.domain.Option;
 import com.martim.adventure_book.book.domain.Section;
 import org.springframework.stereotype.Component;
-
 import java.util.ArrayDeque;
 import java.util.HashSet;
 import java.util.Set;
@@ -12,10 +11,22 @@ import java.util.Set;
 @Component
 public class BookValidator {
 
-    public void validate(Book book) {
+    /**
+     * Validations that do not require sectionsById map.
+     * Must be executed before building the map so duplicate section IDs are reported
+     * by the validator instead of the map creation (JsonBookRepository.buildSectionIndex()).
+     */
+    public void validateBeforeIndex(Book book) {
         validateMetadata(book); // extra
         validateHasSections(book); // extra
         validateRequiredAndUniqueFields(book); // extra
+    }
+
+    /**
+     * Validations that depend on the sectionsById map.
+     * Must be executed after the map is built because it performs section lookups by ID.
+     */
+    public void validateAfterIndex(Book book) {
         validateSingleBeginning(book);
         validateEnding(book);
         validateNonEndingSections(book);
@@ -149,6 +160,10 @@ public class BookValidator {
         }
     }
 
+    /**
+     * Validates that at least one END section is reachable from the BEGIN section.
+     * Uses depth-first search (DFS) to traverse the sections.
+     */
     private void validateEndReachability(Book book) {
         Section beginning = book.getBeginning(); // never null because of validateSingleBeginning
         Set<Integer> visited = new HashSet<>();

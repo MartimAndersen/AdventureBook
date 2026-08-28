@@ -12,7 +12,8 @@ import java.util.Map;
 @NoArgsConstructor
 public class Book {
 
-    private String id, title, author, difficulty, type;
+    private String id, title, author, type;
+    private Difficulty difficulty;
     private List<Section> sections;
     @JsonIgnore
     private Map<Integer, Section> sectionsById;
