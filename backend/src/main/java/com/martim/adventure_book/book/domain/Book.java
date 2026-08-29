@@ -17,8 +17,13 @@ public class Book {
     private List<Section> sections;
     @JsonIgnore
     private Map<Integer, Section> sectionsById;
-    @JsonIgnore
-    private Section beginning;
+
+    public Section getBeginning() {
+        return sections.stream()
+                .filter(Section::isBeginning)
+                .findFirst()
+                .orElse(null);
+    }
 
     public Section getSection(int id) {
         return sectionsById.get(id);

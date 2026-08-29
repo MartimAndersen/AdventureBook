@@ -1,0 +1,121 @@
+{
+  "title": "A Walk in the Park",
+  "author": "Martim Andersen",
+  "difficulty": "EASY",
+  "type": "SLICE_OF_LIFE",
+  "sections": [
+    {
+      "id": 1,
+      "text": "Anne arrives at the park for a walk.",
+      "type": "BEGIN",
+      "options": [
+        {
+          "description": "Take the main path",
+          "gotoId": 10
+        },
+        {
+          "description": "Take a short jog",
+          "gotoId": 20
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "text": "Anne sees a friendly dog.",
+      "type": "NODE",
+      "options": [
+        {
+          "description": "Ask to pet the dog",
+          "gotoId": 30
+        },
+        {
+          "description": "Keep walking",
+          "gotoId": 40
+        }
+      ]
+    },
+    {
+      "id": 20,
+      "text": "After jogging for a few minutes, Anne reaches a small pond.",
+      "type": "NODE",
+      "options": [
+        {
+          "description": "Sit on a bench",
+          "gotoId": 40
+        },
+        {
+          "description": "Call a friend",
+          "gotoId": 50
+        }
+      ]
+    },
+    {
+      "id": 30,
+      "text": "The dog enjoys the attention and wags its tail.",
+      "type": "NODE",
+      "options": [
+        {
+          "description": "Buy an ice cream",
+          "gotoId": 60
+        },
+        {
+          "description": "Continue walking",
+          "gotoId": 40
+        }
+      ]
+    },
+    {
+      "id": 40,
+      "text": "Anne notices a tree that looks easy to climb.",
+      "type": "NODE",
+      "options": [
+        {
+          "description": "Climb the tree",
+          "gotoId": 70
+        },
+        {
+          "description": "Stay on the path",
+          "gotoId": 60
+        }
+      ]
+    },
+    {
+      "id": 50,
+      "text": "Anne has a nice chat with a friend.",
+      "type": "NODE",
+      "options": [
+        {
+          "description": "Walk to the ice cream stand",
+          "gotoId": 60
+        }
+      ]
+    },
+    {
+      "id": 60,
+      "text": "Anne buys an ice cream and enjoys the quiet afternoon.",
+      "type": "NODE",
+      "options": [
+        {
+          "description": "Head home",
+          "gotoId": 100
+        }
+      ]
+    },
+    {
+      "id": 70,
+      "text": "Anne climbs the tree and enjoys the view of the park.",
+      "type": "NODE",
+      "options": [
+        {
+          "description": "Climb down and head home",
+          "gotoId": 100
+        }
+      ]
+    },
+    {
+      "id": 100,
+      "text": "Anne finishes her walk and returns home happy.",
+      "type": "END"
+    }
+  ]
+}
