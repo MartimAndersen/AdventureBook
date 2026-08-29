@@ -4,6 +4,10 @@ import com.martim.adventure_book.book.domain.Book;
 import com.martim.adventure_book.book.domain.Option;
 import com.martim.adventure_book.book.domain.Section;
 import com.martim.adventure_book.book.service.BookCatalog;
+import com.martim.adventure_book.common.exception.BookNotFoundException;
+import com.martim.adventure_book.common.exception.GameAlreadyFinishedException;
+import com.martim.adventure_book.common.exception.GameNotFoundException;
+import com.martim.adventure_book.common.exception.InvalidChoiceException;
 import com.martim.adventure_book.game.domain.Game;
 import com.martim.adventure_book.game.domain.GameStatus;
 import com.martim.adventure_book.game.dto.GameResponseDto;
@@ -26,9 +30,7 @@ public class GameService {
         Book book = bookCatalog.getBook(bookId);
 
         if (book == null) {
-            throw new IllegalArgumentException(
-                    "Book not found: " + bookId
-            );
+            throw new BookNotFoundException(bookId);
         }
 
         Game game = gameEngine.startGame(book);
@@ -68,24 +70,18 @@ public class GameService {
         Game game = games.get(gameId);
 
         if (game == null) {
-            throw new IllegalArgumentException(
-                    "Game not found: " + gameId
-            );
+            throw new GameNotFoundException(gameId);
         }
 
         if (game.getStatus() != GameStatus.IN_PROGRESS) {
-            throw new IllegalStateException(
-                    "Game is already finished"
-            );
+            throw new GameAlreadyFinishedException();
         }
 
         Book book = bookCatalog.getBook(game.getBookId());
         Section currentSection = book.getSection(game.getCurrentSectionId());
 
         if (optionIndex < 0 || optionIndex >= currentSection.getOptions().size()) {
-            throw new IllegalArgumentException(
-                    "Invalid option index: " + optionIndex
-            );
+            throw new InvalidChoiceException(optionIndex);
         }
 
         Option chosenOption = currentSection.getOptions().get(optionIndex);
