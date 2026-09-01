@@ -7,6 +7,7 @@ import com.martim.adventure_book.book.domain.Section;
 import com.martim.adventure_book.game.domain.Game;
 import com.martim.adventure_book.game.domain.GameStatus;
 import org.springframework.stereotype.Service;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Service
@@ -15,12 +16,15 @@ public class GameEngine {
     private static final int INITIAL_HEALTH = 10;
 
     public Game startGame(Book book) {
+        LocalDateTime now = LocalDateTime.now();
         return Game.builder()
-                .id(UUID.randomUUID())
+                .gameId(UUID.randomUUID())
                 .bookId(book.getId())
                 .currentSectionId(book.getBeginning().getId())
                 .health(INITIAL_HEALTH)
                 .status(GameStatus.IN_PROGRESS)
+                .createdAt(now)
+                .updatedAt(now)
                 .build();
     }
 
