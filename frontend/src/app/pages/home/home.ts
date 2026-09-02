@@ -5,6 +5,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { GamesService } from '../../core/services/games.service';
 import { SavedGame } from '../../core/models/saved-game';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -19,6 +20,7 @@ export class Home implements OnInit {
   constructor(
     private booksService: BooksService,
     private gamesService: GamesService,
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
@@ -33,5 +35,13 @@ export class Home implements OnInit {
 
   hasSavedGame(bookId: string): boolean {
     return this.savedGames.some((savedGame) => savedGame.bookId === bookId);
+  }
+
+  startGame(bookId: string): void {
+    this.gamesService.startGame(bookId).subscribe((game) => {
+      console.log(game);
+
+      this.router.navigate(['/game', game.gameId]);
+    });
   }
 }

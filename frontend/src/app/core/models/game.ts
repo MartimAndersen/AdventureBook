@@ -1,0 +1,10 @@
+import { GameStatus } from './game-status';
+import { Section } from './section';
+
+export interface Game {
+  gameId: string;
+  bookId: string;
+  health: number;
+  status: GameStatus;
+  section: Section;
+}

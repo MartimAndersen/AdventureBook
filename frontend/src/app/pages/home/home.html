@@ -16,7 +16,10 @@
     </mat-card-content>
 
     <mat-card-actions>
-      <button mat-raised-button color="primary">
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="startGame(book.id)">
         Start New Game
       </button>
       @if (hasSavedGame(book.id)) {
