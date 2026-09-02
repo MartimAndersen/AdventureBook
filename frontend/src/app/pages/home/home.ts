@@ -46,6 +46,10 @@ export class Home implements OnInit {
   }
 
   resumeGame(gameId: string): void {
-    this.router.navigate(['/game', gameId]);
+    this.gamesService.getGame(gameId).subscribe((game) => {
+      this.gamesService.currentGame = game;
+
+      this.router.navigate(['/game', gameId]);
+    });
   }
 }
