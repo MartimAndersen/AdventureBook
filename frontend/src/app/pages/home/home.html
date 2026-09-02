@@ -1,7 +1,26 @@
-<h1>Books</h1>
-
-<p>{{ books.length }}</p>
+<h1>Adventure Books</h1>
 
 @for (book of books; track book.id) {
-  <p>{{ book.title }}</p>
+
+  <mat-card class="book-card">
+    <mat-card-header>
+      <mat-card-title>
+        {{ book.title }}
+      </mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <p>Author: {{ book.author }}</p>
+      <p>Difficulty: {{ book.difficulty }}</p>
+      <p>Type: {{ book.type }}</p>
+    </mat-card-content>
+
+    <mat-card-actions>
+      <button mat-raised-button color="primary">
+        Start Game
+      </button>
+    </mat-card-actions>
+
+  </mat-card>
+
 }

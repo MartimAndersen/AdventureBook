@@ -1,0 +1,100 @@
+{
+  "title": "John Plays Football",
+  "author": "Martim Andersen",
+  "difficulty": "EASY",
+  "type": "SPORT",
+  "sections": [
+    {
+      "id": 1,
+      "text": "John arrives at the school football field during the morning break. His friends are already picking teams for a match.",
+      "type": "BEGIN",
+      "options": [
+        {
+          "description": "Play in attack",
+          "gotoId": 10,
+          "consequence": {
+            "type": "LOSE_HEALTH",
+            "value": "5",
+            "text": "A defender tackles John while fighting for the ball."
+          }
+        },
+        {
+          "description": "Play in defense",
+          "gotoId": 20
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "text": "John gets back up after the tackle and continues playing near the opponent's goal.",
+      "type": "NODE",
+      "options": [
+        {
+          "description": "Try to score a goal",
+          "gotoId": 30
+        },
+        {
+          "description": "Pass to a teammate",
+          "gotoId": 40
+        }
+      ]
+    },
+    {
+      "id": 20,
+      "text": "John stays in defense and helps his team stop an attack.",
+      "type": "NODE",
+      "options": [
+        {
+          "description": "Clear the ball up the field",
+          "gotoId": 40
+        },
+        {
+          "description": "Carry the ball forward",
+          "gotoId": 50
+        }
+      ]
+    },
+    {
+      "id": 30,
+      "text": "John shoots and scores. His friends cheer as his team takes the lead.",
+      "type": "NODE",
+      "options": [
+        {
+          "description": "Celebrate with teammates",
+          "gotoId": 60
+        }
+      ]
+    },
+    {
+      "id": 40,
+      "text": "The pass reaches a teammate, and the team keeps possession of the ball.",
+      "type": "NODE",
+      "options": [
+        {
+          "description": "Continue playing",
+          "gotoId": 60
+        }
+      ]
+    },
+    {
+      "id": 50,
+      "text": "John dribbles forward from defense and nearly reaches the penalty area.",
+      "type": "NODE",
+      "options": [
+        {
+          "description": "Take a long shot",
+          "gotoId": 60
+        },
+        {
+          "description": "Pass the ball",
+          "gotoId": 40
+        }
+      ]
+    },
+    {
+      "id": 60,
+      "text": "The game continues for a few more minutes. Suddenly, the school bell rings, and everyone has to head back to class.",
+      "type": "END"
+    }
+  ]
+}
