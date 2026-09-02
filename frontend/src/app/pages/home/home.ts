@@ -33,15 +33,19 @@ export class Home implements OnInit {
     });
   }
 
-  hasSavedGame(bookId: string): boolean {
-    return this.savedGames.some((savedGame) => savedGame.bookId === bookId);
-  }
-
   startGame(bookId: string): void {
     this.gamesService.startGame(bookId).subscribe((game) => {
-      console.log(game);
+      this.gamesService.currentGame = game;
 
       this.router.navigate(['/game', game.gameId]);
     });
+  }
+
+  getSavedGame(bookId: string): SavedGame | undefined {
+    return this.savedGames.find((game) => game.bookId === bookId);
+  }
+
+  resumeGame(gameId: string): void {
+    this.router.navigate(['/game', gameId]);
   }
 }

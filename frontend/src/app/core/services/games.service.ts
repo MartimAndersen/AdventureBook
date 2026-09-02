@@ -8,6 +8,7 @@ import { Game } from '../models/game';
 })
 export class GamesService {
   private readonly apiUrl = 'http://localhost:8080/api';
+  currentGame?: Game;
 
   constructor(private http: HttpClient) {}
 
@@ -17,5 +18,9 @@ export class GamesService {
 
   startGame(bookId: string) {
     return this.http.post<Game>(`${this.apiUrl}/games`, { bookId });
+  }
+
+  getGame(gameId: string) {
+    return this.http.get<Game>(`${this.apiUrl}/games/${gameId}`);
   }
 }

@@ -1,1 +1,7 @@
 <h1>Game Page</h1>
+
+@if (game) {
+  <h1>{{ game.bookId }}</h1>
+  <p>Health: {{ game.health }}</p>
+  <p>{{ game.section.text }}</p>
+}

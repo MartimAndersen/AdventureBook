@@ -1,5 +1,8 @@
 <h1>Adventure Books</h1>
 
+<!-- <p>Books loaded: {{ books.length }}</p> -->
+
+
 @for (book of books; track book.id) {
 
   <mat-card class="book-card">
@@ -22,10 +25,13 @@
         (click)="startGame(book.id)">
         Start New Game
       </button>
-      @if (hasSavedGame(book.id)) {
-        <button mat-raised-button>
+      @if (getSavedGame(book.id); as savedGame) {
+        <button
+          mat-raised-button
+          (click)="resumeGame(savedGame.gameId)">
           Resume Game
         </button>
+
       }
     </mat-card-actions>
 
