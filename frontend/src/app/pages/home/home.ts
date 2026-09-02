@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-
 import { BooksService } from '../../core/services/books.service';
 import { BookSummary } from '../../core/models/book-summary';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
+import { GamesService } from '../../core/services/games.service';
+import { SavedGame } from '../../core/models/saved-game';
 
 @Component({
   selector: 'app-home',
@@ -13,13 +14,24 @@ import { MatButtonModule } from '@angular/material/button';
 })
 export class Home implements OnInit {
   books: BookSummary[] = [];
+  savedGames: SavedGame[] = [];
 
-  constructor(private booksService: BooksService) {}
+  constructor(
+    private booksService: BooksService,
+    private gamesService: GamesService,
+  ) {}
 
   ngOnInit(): void {
     this.booksService.getBooks().subscribe((books) => {
       this.books = books;
-      console.log(books);
     });
+
+    this.gamesService.getSavedGames().subscribe((savedGames) => {
+      this.savedGames = savedGames;
+    });
+  }
+
+  hasSavedGame(bookId: string): boolean {
+    return this.savedGames.some((savedGame) => savedGame.bookId === bookId);
   }
 }

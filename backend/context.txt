@@ -1,0 +1,102 @@
+- List books
+GET /api/books
+Return type: List<BookSummaryDto>
+Success response body: JSON array of book summaries:
+[
+  {
+	"id": "dragon-quest",
+	"title": "Dragon Quest",
+	"author": "Martim A",
+	"difficulty": "EASY | MEDIUM | HARD",
+	"type": "Fantasy"
+  }
+]
+BookSummaryDto fields:
+id: String
+title: String
+author: String
+difficulty: Difficulty (EASY, MEDIUM, or HARD)
+type: String
+
+- Start a game
+POST /api/games
+Request body type: StartGameRequestDto
+Request body:
+json
+{
+  "bookId": "dragon-quest"
+}
+Return type: GameResponseDto
+Success response body:
+json
+{
+  "gameId": "00000000-0000-0000-0000-000000000000",
+  "bookId": "dragon-quest",
+  "health": 100,
+  "status": "IN_PROGRESS | WON | LOST",
+  "section": {
+	"id": 1,
+	"text": "...",
+	"options": [
+	  {
+		"index": 0,
+		"description": "..."
+	  }
+	]
+  }
+}
+StartGameRequestDto contains bookId: String.
+GameResponseDto contains gameId: UUID, bookId: String, health: int, status: GameStatus, and section: SectionDto.
+SectionDto contains id: Integer, text: String, and options: List<OptionDto>.
+OptionDto contains index: int and description: String.
+
+- Resume a game
+GET /api/games/{gameId}
+Return type: GameResponseDto
+Success response body: same GameResponseDto shape as Start a game.
+
+- List saved games
+GET /api/saved-games
+Return type: List<SavedGameSummaryDto>
+Success response body: JSON array:
+[
+  {
+	"gameId": "00000000-0000-0000-0000-000000000000",
+	"bookId": "dragon-quest",
+	"updatedAt": "2026-01-01T12:00:00"
+  }
+]
+SavedGameSummaryDto fields are gameId: UUID, bookId: String, and updatedAt: LocalDateTime.
+
+- Make a choice
+POST /api/games/choices
+Request body type: MakeChoiceRequestDto
+Request body:
+json
+{
+  "optionIndex": 0
+}
+Return type: GameResponseDto
+Success response body: same GameResponseDto shape as Start a game.
+MakeChoiceRequestDto contains optionIndex: int.
+
+- Save the active game
+POST /api/games/save
+Return type: void
+Success response: 200 OK with an empty response body.
+
+## Error responses
+The global exception handler returns ApiErrorDto for the following failures:
+json
+{
+  "timestamp": "2026-01-01T12:00:00",
+  "status": 404,
+  "message": "..."
+}
+ApiErrorDto fields are timestamp: LocalDateTime, status: int, and message: String.
+| HTTP status | Exceptions | Applicable operations |
+| --- | --- | --- |
+| 404 Not Found | BookNotFoundException | Start a game when the requested book does not exist |
+| 404 Not Found | GameNotFoundException | Resume or save a game that cannot be found |
+| 400 Bad Request | InvalidChoiceException | Make a choice with an invalid option |
+| 400 Bad Request | GameAlreadyFinishedException | Make a choice after the game has ended |

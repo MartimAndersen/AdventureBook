@@ -17,8 +17,13 @@
 
     <mat-card-actions>
       <button mat-raised-button color="primary">
-        Start Game
+        Start New Game
       </button>
+      @if (hasSavedGame(book.id)) {
+        <button mat-raised-button>
+          Resume Game
+        </button>
+      }
     </mat-card-actions>
 
   </mat-card>
