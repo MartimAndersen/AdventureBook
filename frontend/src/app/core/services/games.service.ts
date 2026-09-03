@@ -27,4 +27,8 @@ export class GamesService {
   makeChoice(optionIndex: number) {
     return this.http.post<Game>(`${this.apiUrl}/games/choices`, { optionIndex });
   }
+
+  saveGame() {
+    return this.http.post(`${this.apiUrl}/games/save`, {});
+  }
 }

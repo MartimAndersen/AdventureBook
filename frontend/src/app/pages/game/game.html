@@ -4,6 +4,13 @@
 
   <h1>{{ game.bookId }}</h1>
 
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="saveGame()">
+    Save Progress
+  </button>
+
   <p>Health: {{ game.health }}</p>
 
   <p>{{ game.section.text }}</p>
