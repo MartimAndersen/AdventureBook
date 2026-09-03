@@ -8,7 +8,7 @@ import { BookSummary } from '../models/book-summary';
   providedIn: 'root',
 })
 export class BooksService {
-  private readonly apiUrl = "http://localhost:8080/api/books";
+  private readonly apiUrl = 'http://localhost:8080/api/books';
 
   constructor(private http: HttpClient) {}
 

@@ -23,4 +23,8 @@ export class GamesService {
   getGame(gameId: string) {
     return this.http.get<Game>(`${this.apiUrl}/games/${gameId}`);
   }
+
+  makeChoice(optionIndex: number) {
+    return this.http.post<Game>(`${this.apiUrl}/games/choices`, { optionIndex });
+  }
 }

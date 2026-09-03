@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { BooksService } from '../../core/services/books.service';
 import { BookSummary } from '../../core/models/book-summary';
 import { MatCardModule } from '@angular/material/card';
@@ -14,8 +14,8 @@ import { Router } from '@angular/router';
   styleUrl: './home.scss',
 })
 export class Home implements OnInit {
-  books: BookSummary[] = [];
-  savedGames: SavedGame[] = [];
+  books = signal<BookSummary[]>([]);
+  savedGames = signal<SavedGame[]>([]);
 
   constructor(
     private booksService: BooksService,
@@ -25,11 +25,11 @@ export class Home implements OnInit {
 
   ngOnInit(): void {
     this.booksService.getBooks().subscribe((books) => {
-      this.books = books;
+      this.books.set(books);
     });
 
     this.gamesService.getSavedGames().subscribe((savedGames) => {
-      this.savedGames = savedGames;
+      this.savedGames.set(savedGames);
     });
   }
 
@@ -42,7 +42,7 @@ export class Home implements OnInit {
   }
 
   getSavedGame(bookId: string): SavedGame | undefined {
-    return this.savedGames.find((game) => game.bookId === bookId);
+    return this.savedGames().find((game) => game.bookId === bookId);
   }
 
   resumeGame(gameId: string): void {

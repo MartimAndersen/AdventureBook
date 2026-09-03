@@ -1,7 +1,30 @@
 <h1>Game Page</h1>
 
-@if (game) {
+@if (game(); as game) {
+
   <h1>{{ game.bookId }}</h1>
+
   <p>Health: {{ game.health }}</p>
+
   <p>{{ game.section.text }}</p>
+
+  <h3>Options</h3>
+
+  @for (option of game.section.options;
+    track option.index;
+    let optionNumber = $index) {
+
+    <mat-card
+      class="option-card"
+      (click)="makeChoice(option.index)"
+    >
+      <mat-card-content>
+        {{ optionNumber + 1 }} - {{ option.description }}
+      </mat-card-content>
+    </mat-card>
+
+  }
+
 }
+
+

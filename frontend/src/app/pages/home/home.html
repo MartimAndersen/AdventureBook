@@ -1,9 +1,8 @@
 <h1>Adventure Books</h1>
 
-<!-- <p>Books loaded: {{ books.length }}</p> -->
+<p>Books loaded: {{ books().length }}</p>
 
-
-@for (book of books; track book.id) {
+@for (book of books(); track book.id) {
 
   <mat-card class="book-card">
     <mat-card-header>
@@ -38,3 +37,4 @@
   </mat-card>
 
 }
+
