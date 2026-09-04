@@ -1,5 +1,14 @@
 <h1>Adventure Books</h1>
 
+<label class="search-field">
+  <span>Search by title</span>
+  <input
+    type="search"
+    [value]="searchQuery()"
+    placeholder="Title"
+    (input)="onSearchChange($event)" />
+</label>
+
 <div class="filters">
   <button mat-stroked-button [matMenuTriggerFor]="difficultyMenu">
     Difficulty{{ selectedDifficulties().length ? ' (' + selectedDifficulties().length + ')' : '' }}

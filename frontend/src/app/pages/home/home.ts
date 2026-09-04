@@ -21,6 +21,7 @@ export class Home implements OnInit {
   types = signal<string[]>([]);
   selectedDifficulties = signal<string[]>([]);
   selectedTypes = signal<string[]>([]);
+  searchQuery = signal('');
   filteredBooks = computed(() => {
     const selectedDifficulties = this.selectedDifficulties().map((value) => value.toLowerCase());
     const selectedTypes = this.selectedTypes().map((value) => value.toLowerCase());
@@ -32,7 +33,11 @@ export class Home implements OnInit {
       const matchesType =
         selectedTypes.length === 0 || selectedTypes.includes(book.type.toLowerCase());
 
-      return matchesDifficulty && matchesType;
+      const normalizedTitle = book.title.toLowerCase();
+      const normalizedSearch = this.searchQuery().toLowerCase().trim();
+      const matchesTitle = normalizedTitle.includes(normalizedSearch);
+
+      return matchesDifficulty && matchesType && matchesTitle;
     });
   });
   savedGames = signal<SavedGame[]>([]);
@@ -67,6 +72,10 @@ export class Home implements OnInit {
 
   toggleType(type: string): void {
     this.selectedTypes.update((selected) => this.toggleValue(selected, type));
+  }
+
+  onSearchChange(event: Event): void {
+    this.searchQuery.set((event.target as HTMLInputElement).value);
   }
 
   isDifficultySelected(difficulty: string): boolean {
