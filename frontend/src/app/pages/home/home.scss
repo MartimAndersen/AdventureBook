@@ -1,3 +1,13 @@
+.filters {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.filter-option {
+  padding: 4px 12px;
+}
+
 .book-card {
   margin-bottom: 16px;
 }

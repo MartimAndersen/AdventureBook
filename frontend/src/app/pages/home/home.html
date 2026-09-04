@@ -1,8 +1,40 @@
 <h1>Adventure Books</h1>
 
-<p>Books loaded: {{ books().length }}</p>
+<div class="filters">
+  <button mat-stroked-button [matMenuTriggerFor]="difficultyMenu">
+    Difficulty{{ selectedDifficulties().length ? ' (' + selectedDifficulties().length + ')' : '' }}
+  </button>
+  <mat-menu #difficultyMenu="matMenu">
+    @for (difficulty of difficulties(); track difficulty) {
+      <div class="filter-option" (click)="$event.stopPropagation()">
+        <mat-checkbox
+          [checked]="isDifficultySelected(difficulty)"
+          (change)="toggleDifficulty(difficulty)">
+          {{ difficulty }}
+        </mat-checkbox>
+      </div>
+    }
+  </mat-menu>
 
-@for (book of books(); track book.id) {
+  <button mat-stroked-button [matMenuTriggerFor]="typeMenu">
+    Type{{ selectedTypes().length ? ' (' + selectedTypes().length + ')' : '' }}
+  </button>
+  <mat-menu #typeMenu="matMenu">
+    @for (type of types(); track type) {
+      <div class="filter-option" (click)="$event.stopPropagation()">
+        <mat-checkbox
+          [checked]="isTypeSelected(type)"
+          (change)="toggleType(type)">
+          {{ type }}
+        </mat-checkbox>
+      </div>
+    }
+  </mat-menu>
+</div>
+
+<p>Books loaded: {{ filteredBooks().length }}</p>
+
+@for (book of filteredBooks(); track book.id) {
 
   <mat-card class="book-card">
     <mat-card-header>

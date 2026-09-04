@@ -15,4 +15,12 @@ export class BooksService {
   getBooks(): Observable<BookSummary[]> {
     return this.http.get<BookSummary[]>(this.apiUrl);
   }
+
+  getDifficulties(): Observable<string[]> {
+    return this.http.get<string[]>(`${this.apiUrl}/difficulties`);
+  }
+
+  getTypes(): Observable<string[]> {
+    return this.http.get<string[]>(`${this.apiUrl}/types`);
+  }
 }
