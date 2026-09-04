@@ -1,3 +1,14 @@
+.game-actions {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.back-button span {
+  font-size: 1.2rem;
+  margin-right: 4px;
+}
+
 .option-card {
   margin-bottom: 12px;
   cursor: pointer;

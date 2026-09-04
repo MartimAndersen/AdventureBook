@@ -4,12 +4,23 @@
 
   <h1>{{ game.bookTitle }}</h1>
 
-  <button
-    mat-raised-button
-    color="primary"
-    (click)="saveGame()">
-    Save Progress
-  </button>
+  <div class="game-actions">
+    <button
+      mat-stroked-button
+      class="back-button"
+      aria-label="Back to Library"
+      (click)="backToLibrary()">
+      <span aria-hidden="true">←</span>
+      Back to Library
+    </button>
+
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="saveGame()">
+      Save Progress
+    </button>
+  </div>
 
   <p>Health: {{ game.health }}</p>
 

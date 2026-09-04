@@ -4,11 +4,14 @@ import { Game as GameModel } from '../../core/models/game';
 import { GameStatus } from '../../core/models/game-status';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
+import { SaveGameDialog, SaveGameDialogResult } from './save-game-dialog';
 
 @Component({
   selector: 'app-game',
-  imports: [MatCardModule, MatButtonModule],
+  imports: [MatCardModule, MatButtonModule, MatDialogModule],
   templateUrl: './game.html',
   styleUrl: './game.scss',
 })
@@ -19,6 +22,8 @@ export class Game implements OnInit {
   constructor(
     private gamesService: GamesService,
     private snackBar: MatSnackBar,
+    private dialog: MatDialog,
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
@@ -34,13 +39,31 @@ export class Game implements OnInit {
 
   saveGame(): void {
     this.gamesService.saveGame().subscribe(() => {
-      this.snackBar.open(
-        'Game saved successfully',
-        'Close',
-        {
-          duration: 3000
-        }
-      );
+      this.showSaveSuccess();
     });
+  }
+
+  backToLibrary(): void {
+    this.dialog
+      .open(SaveGameDialog)
+      .afterClosed()
+      .subscribe((result: SaveGameDialogResult | undefined) => {
+        if (result === 'save') {
+          this.gamesService.saveGame().subscribe(() => {
+            this.showSaveSuccess();
+            this.navigateToLibrary();
+          });
+        } else if (result === 'discard') {
+          this.navigateToLibrary();
+        }
+      });
+  }
+
+  private showSaveSuccess(): void {
+    this.snackBar.open('Game saved successfully', 'Close', { duration: 3000 });
+  }
+
+  private navigateToLibrary(): void {
+    this.router.navigate(['/']);
   }
 }
