@@ -15,35 +15,43 @@
 
   <p>{{ game.section.text }}</p>
 
-  <h3>Options</h3>
+  @if (game.status === gameStatus.LOST) {
+    <h2>Game Over</h2>
+    <p>You have run out of health.</p>
+  } @else if (game.status === gameStatus.WON) {
+    <h2>Congratulations!</h2>
+    <p>You have successfully finished the game.</p>
+  } @else {
+    <h3>What do you choose?</h3>
 
-  @for (option of game.section.options;
-    track option.index;
-    let optionNumber = $index) {
-    <mat-card
-      class="option-card"
-      (click)="makeChoice(option.index)"
-    >
-      <mat-card-content>
-        <div>
-          {{ optionNumber + 1 }} - {{ option.description }}
-        </div>
-        @if (option.consequence) {
-          <div class="consequence">
-            @if (option.consequence?.type === 'LOSE_HEALTH') {
-              ❤️ -{{ option.consequence?.value }}
-            }
-
-            @if (option.consequence?.type === 'GAIN_HEALTH') {
-              ❤️ +{{ option.consequence?.value }}
-            }
-            <div>
-              {{ option.consequence.text }}
-            </div>
+    @for (option of game.section.options;
+      track option.index;
+      let optionNumber = $index) {
+      <mat-card
+        class="option-card"
+        (click)="makeChoice(option.index)"
+      >
+        <mat-card-content>
+          <div>
+            {{ optionNumber + 1 }} - {{ option.description }}
           </div>
-        }
-      </mat-card-content>
-    </mat-card>
+          @if (option.consequence) {
+            <div class="consequence">
+              @if (option.consequence?.type === 'LOSE_HEALTH') {
+                ❤️ -{{ option.consequence?.value }}
+              }
+
+              @if (option.consequence?.type === 'GAIN_HEALTH') {
+                ❤️ +{{ option.consequence?.value }}
+              }
+              <div>
+                {{ option.consequence.text }}
+              </div>
+            </div>
+          }
+        </mat-card-content>
+      </mat-card>
+    }
   }
 
 }

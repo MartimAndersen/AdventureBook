@@ -1,6 +1,7 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { GamesService } from '../../core/services/games.service';
 import { Game as GameModel } from '../../core/models/game';
+import { GameStatus } from '../../core/models/game-status';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -13,6 +14,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class Game implements OnInit {
   game = signal<GameModel | undefined>(undefined);
+  readonly gameStatus = GameStatus;
 
   constructor(
     private gamesService: GamesService,
