@@ -42,7 +42,7 @@ public class GameResponseMapper {
         }
         return new GameResponseDto(
                 game.getGameId(),
-                game.getBookId(),
+                book.getTitle(),
                 game.getHealth(),
                 game.getStatus(),
                 new SectionDto(

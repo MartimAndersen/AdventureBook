@@ -6,7 +6,7 @@ import java.util.UUID;
 
 public record GameResponseDto(
         UUID gameId,
-        String bookId,
+        String bookTitle,
         int health,
         GameStatus status,
         SectionDto section

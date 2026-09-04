@@ -3,7 +3,7 @@ import { Section } from './section';
 
 export interface Game {
   gameId: string;
-  bookId: string;
+  bookTitle: string;
   health: number;
   status: GameStatus;
   section: Section;
