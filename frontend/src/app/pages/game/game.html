@@ -20,16 +20,30 @@
   @for (option of game.section.options;
     track option.index;
     let optionNumber = $index) {
-
     <mat-card
       class="option-card"
       (click)="makeChoice(option.index)"
     >
       <mat-card-content>
-        {{ optionNumber + 1 }} - {{ option.description }}
+        <div>
+          {{ optionNumber + 1 }} - {{ option.description }}
+        </div>
+        @if (option.consequence) {
+          <div class="consequence">
+            @if (option.consequence?.type === 'LOSE_HEALTH') {
+              ❤️ -{{ option.consequence?.value }}
+            }
+
+            @if (option.consequence?.type === 'GAIN_HEALTH') {
+              ❤️ +{{ option.consequence?.value }}
+            }
+            <div>
+              {{ option.consequence.text }}
+            </div>
+          </div>
+        }
       </mat-card-content>
     </mat-card>
-
   }
 
 }

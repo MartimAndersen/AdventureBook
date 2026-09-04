@@ -3,6 +3,7 @@ package com.martim.adventure_book.game.mapper;
 import com.martim.adventure_book.book.domain.Book;
 import com.martim.adventure_book.book.domain.Section;
 import com.martim.adventure_book.game.domain.Game;
+import com.martim.adventure_book.game.dto.ConsequenceDto;
 import com.martim.adventure_book.game.dto.GameResponseDto;
 import com.martim.adventure_book.game.dto.OptionDto;
 import com.martim.adventure_book.game.dto.SectionDto;
@@ -28,7 +29,14 @@ public class GameResponseMapper {
                     .stream()
                     .map(option -> new OptionDto(
                             section.getOptions().indexOf(option),
-                            option.description()
+                            option.description(),
+                            option.consequence() == null
+                                    ? null
+                                    : new ConsequenceDto(
+                                            option.consequence().type(),
+                                            option.consequence().value(),
+                                            option.consequence().text()
+                                    )
                     ))
                     .toList();
         }
