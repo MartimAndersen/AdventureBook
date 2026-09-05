@@ -33,6 +33,7 @@
 .book-author { margin: 3px 0 20px; color: #8c7d72; }
 .book-details { display: flex; gap: 8px; color: #8c7d72; font-size: 0.82rem; }
 .book-details span { padding: 5px 9px; background: #f3ebe1; border-radius: 5px; }
+.last-played { margin: 12px 0 0; color: #8c7d72; font-size: 0.82rem; }
 .book-card mat-card-actions { display: flex; gap: 10px; margin-top: auto; padding: 16px 8px 8px; }
 .book-action { flex: 1; padding: 10px 8px; color: #fff; font: inherit; background: linear-gradient(90deg, #bf822a, #d59f35, #e9bd3f); border: 0; border-radius: 6px; cursor: pointer; }
 .book-action:hover { filter: brightness(1.05); }

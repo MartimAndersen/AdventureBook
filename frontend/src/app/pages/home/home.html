@@ -72,6 +72,9 @@
             <span>{{ formatLabel(book.difficulty) }}</span>
             <span>{{ formatLabel(book.type) }}</span>
           </div>
+          @if (savedGamesByBookId.get(book.id); as savedGame) {
+            <p class="last-played">Last saved: {{ savedGame.updatedAt | date: 'dd-MM-yyyy HH:mm' }}</p>
+          }
         </mat-card-content>
         <mat-card-actions>
           <button class="book-action" (click)="startGame(book.id)">Start New Game</button>

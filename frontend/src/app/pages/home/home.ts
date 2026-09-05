@@ -1,4 +1,5 @@
 import { Component, OnInit, signal, computed } from '@angular/core';
+import { DatePipe } from '@angular/common';
 import { BooksService } from '../../core/services/books.service';
 import { BookSummary } from '../../core/models/book-summary';
 import { MatCardModule } from '@angular/material/card';
@@ -13,7 +14,7 @@ import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-home',
-  imports: [MatCardModule, MatButtonModule, MatCheckboxModule, MatMenuModule, MatIconModule],
+  imports: [DatePipe, MatCardModule, MatButtonModule, MatCheckboxModule, MatMenuModule, MatIconModule],
   templateUrl: './home.html',
   styleUrl: './home.scss',
 })
