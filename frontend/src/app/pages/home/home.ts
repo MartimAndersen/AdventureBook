@@ -82,6 +82,10 @@ export class Home implements OnInit {
     this.searchQuery.set('');
   }
 
+  formatLabel(value: string): string {
+    return value.replace(/_/g, ' ').toLowerCase();
+  }
+
   isDifficultySelected(difficulty: string): boolean {
     return this.selectedDifficulties().some(
       (selected) => selected.toLowerCase() === difficulty.toLowerCase(),

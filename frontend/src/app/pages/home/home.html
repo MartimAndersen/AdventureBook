@@ -38,7 +38,7 @@
         <mat-checkbox
           [checked]="isDifficultySelected(difficulty)"
           (change)="toggleDifficulty(difficulty)">
-          {{ difficulty }}
+          {{ formatLabel(difficulty) }}
         </mat-checkbox>
       </div>
     }
@@ -53,7 +53,7 @@
         <mat-checkbox
           [checked]="isTypeSelected(type)"
           (change)="toggleType(type)">
-          {{ type }}
+          {{ formatLabel(type) }}
         </mat-checkbox>
       </div>
     }
@@ -69,8 +69,8 @@
         <mat-card-content>
           <p class="book-author">by {{ book.author }}</p>
           <div class="book-details">
-            <span>{{ book.difficulty }}</span>
-            <span>{{ book.type }}</span>
+            <span>{{ formatLabel(book.difficulty) }}</span>
+            <span>{{ formatLabel(book.type) }}</span>
           </div>
         </mat-card-content>
         <mat-card-actions>
