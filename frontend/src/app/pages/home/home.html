@@ -65,7 +65,7 @@
         (click)="startGame(book.id)">
         Start New Game
       </button>
-      @if (getSavedGame(book.id); as savedGame) {
+      @if (savedGamesByBookId.get(book.id); as savedGame) {
         <button
           mat-raised-button
           (click)="resumeGame(savedGame.gameId)">

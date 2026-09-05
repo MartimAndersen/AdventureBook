@@ -8,6 +8,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { GamesService } from '../../core/services/games.service';
 import { SavedGame } from '../../core/models/saved-game';
 import { Router } from '@angular/router';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -40,7 +41,7 @@ export class Home implements OnInit {
       return matchesDifficulty && matchesType && matchesTitle;
     });
   });
-  savedGames = signal<SavedGame[]>([]);
+  savedGamesByBookId = new Map<string, SavedGame>();
 
   constructor(
     private booksService: BooksService,
@@ -49,20 +50,18 @@ export class Home implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.booksService.getBooks().subscribe((books) => {
+    forkJoin({
+      books: this.booksService.getBooks(),
+      difficulties: this.booksService.getDifficulties(),
+      types: this.booksService.getTypes(),
+      savedGames: this.gamesService.getSavedGames(),
+    }).subscribe(({ books, difficulties, types, savedGames }) => {
       this.books.set(books);
-    });
-
-    this.booksService.getDifficulties().subscribe((difficulties) => {
       this.difficulties.set(difficulties);
-    });
-
-    this.booksService.getTypes().subscribe((types) => {
       this.types.set(types);
-    });
-
-    this.gamesService.getSavedGames().subscribe((savedGames) => {
-      this.savedGames.set(savedGames);
+      this.savedGamesByBookId = new Map(
+        savedGames.map((savedGame) => [savedGame.bookId, savedGame]),
+      );
     });
   }
 
@@ -104,9 +103,6 @@ export class Home implements OnInit {
     });
   }
 
-  getSavedGame(bookId: string): SavedGame | undefined {
-    return this.savedGames().find((game) => game.bookId === bookId);
-  }
 
   resumeGame(gameId: string): void {
     this.gamesService.getGame(gameId).subscribe((game) => {
