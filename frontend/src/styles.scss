@@ -13,10 +13,36 @@ html {
         primary: mat.$azure-palette,
         tertiary: mat.$blue-palette,
       ),
-      typography: Roboto,
+      typography: (
+        brand-family: Georgia,
+        plain-family: Georgia,
+      ),
       density: 0,
     )
   );
+}
+
+body,
+button,
+input,
+textarea,
+select,
+mat-card,
+mat-card-title,
+mat-card-content,
+mat-card-actions,
+mat-button,
+mat-stroked-button,
+mat-raised-button {
+  font-family: Georgia, 'Times New Roman', serif;
+}
+
+h1,
+h2,
+h3,
+mat-card-title,
+button {
+  font-weight: 700;
 }
 
 body {
@@ -28,9 +54,10 @@ body {
   // Set a default background, font and text colors for the application using
   // Angular Material's system-level CSS variables. Learn more about these
   // variables at https://material.angular.dev/guide/system-variables
-  background-color: var(--mat-sys-surface);
+  background-color: #f9f7f6;
   color: var(--mat-sys-on-surface);
   font: var(--mat-sys-body-medium);
+  font-family: Georgia, 'Times New Roman', serif;
 
   // Reset the user agent margin.
   margin: 0;

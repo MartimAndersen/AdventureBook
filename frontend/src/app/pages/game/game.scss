@@ -1,19 +1,27 @@
-.game-actions {
-  display: flex;
-  gap: 12px;
-  margin-bottom: 16px;
-}
+.game-actions { display: flex; align-items: center; justify-content: space-between; gap: 16px; width: min(1100px, calc(100% - 48px)); margin: 28px auto 18px; }
+.game-actions button { min-height: 40px; padding: 0 14px; color: #8c7d72; font: inherit; background: #fff; border: 1px solid #aaa; border-radius: 7px; cursor: pointer; transition: background-color 120ms ease, box-shadow 120ms ease; }
+.game-actions button:hover { background: #f3ebe1; box-shadow: 0 2px 4px rgba(67, 48, 36, 0.2); }
+.action-icon { width: auto; height: auto; margin-right: 7px; font-size: 1.05rem; vertical-align: middle; }
 
-.back-button span {
-  font-size: 1.2rem;
-  margin-right: 4px;
-}
+.story-card { position: relative; width: min(1100px, calc(100% - 48px)); box-sizing: border-box; margin: 0 auto; padding: 30px 34px 36px; color: #433024; background: #f9f7f6; border: 1px solid #f3e1b7; border-radius: 10px; }
+.story-title { display: inline-flex; align-items: center; gap: 7px; max-width: 40%; padding: 9px 13px; overflow: hidden; color: #433024; font-size: 0.92rem; text-overflow: ellipsis; white-space: nowrap; background: #f3ebe1; border: 1px solid #f3e1b7; border-radius: 7px; }
+.story-title mat-icon { color: #433024; }
+.health-points { display: flex; align-items: center; gap: 6px; margin-top: 14px; color: #433024; font-weight: 700; }
+.health-points mat-icon { width: auto; height: auto; color: #c94b4b; font-size: 1.15rem; line-height: 1; }
+.health-points + .story-text { margin-top: 24px; }
+.story-text { margin: 18px 0 28px; font-size: 1.05rem; line-height: 1.7; }
+.story-divider { width: 86%; margin: 0 auto 24px; border-top: 1px solid #f3e1b7; }
+.choice-heading { margin: 0 0 16px; color: #433024; font-size: 1.25rem; }
+.options-list { display: grid; gap: 12px; }
+.option-card { color: #433024; background: #fff; border: 1px solid #f3e1b7; border-radius: 8px; cursor: pointer; transition: transform 120ms ease, box-shadow 120ms ease; }
+.option-card:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(67, 48, 36, 0.1); }
+.option-description { display: flex; align-items: center; gap: 12px; font-weight: 600; }
+.option-number { display: inline-flex; align-items: center; justify-content: center; flex: 0 0 28px; width: 28px; height: 28px; color: #fff; background: #433024; border-radius: 50%; }
+.consequence { display: flex; align-items: center; gap: 10px; margin-top: 12px; color: #8c7d72; font-size: 0.9rem; line-height: 1.45; }
+.consequence-value { display: inline-flex; align-items: center; gap: 4px; flex: 0 0 auto; color: #8c7d72; font-weight: 700; }
+.consequence-value mat-icon { width: auto; height: auto; font-size: 1.05rem; line-height: 1; }
+.terminal-state { padding: 24px; text-align: center; background: #fff; border: 1px solid #f3e1b7; border-radius: 8px; }
+.terminal-state h2 { margin: 0 0 8px; color: #433024; }
+.terminal-state p { margin: 0; color: #8c7d72; }
 
-.option-card {
-  margin-bottom: 12px;
-  cursor: pointer;
-}
-
-.option-card:hover {
-  background-color: #f5f5f5;
-}
+@media (max-width: 560px) { .game-actions, .story-card { width: calc(100% - 32px); } .game-actions { gap: 6px; } .game-actions button { padding: 0 8px; font-size: 0.82rem; } .story-title { max-width: 28%; padding: 8px; font-size: 0.78rem; } .story-card { padding: 24px 18px 28px; } }

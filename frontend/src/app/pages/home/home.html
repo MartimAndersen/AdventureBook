@@ -1,16 +1,35 @@
-<h1>Adventure Books</h1>
+<section class="hero-banner">
+  <h1><mat-icon aria-hidden="true">star</mat-icon> Adventure Awaits <mat-icon aria-hidden="true">star</mat-icon></h1>
+  <p class="hero-description">
+    Embark on epic quests where every choice shapes your destiny. Explore mystical realms, solve
+    ancient mysteries, and become the hero of your own story.
+  </p>
+  <p class="adventure-count"><mat-icon aria-hidden="true">menu_book</mat-icon> <span class="adventure-count-value">{{ filteredBooks().length }}</span> Epic Adventures Available</p>
+</section>
 
-<label class="search-field">
-  <span>Search by title</span>
-  <input
-    type="search"
-    [value]="searchQuery()"
-    placeholder="Title"
-    (input)="onSearchChange($event)" />
-</label>
+<main class="library-content">
+  <header class="library-heading">
+    <h2><mat-icon aria-hidden="true">auto_stories</mat-icon> The Adventure Library</h2>
+    <p>Choose your next adventure from our collection of interactive tales. Each book offers unique paths and multiple endings based on your choices.</p>
+  </header>
 
-<div class="filters">
-  <button mat-stroked-button [matMenuTriggerFor]="difficultyMenu">
+  <label class="search-field">
+    <mat-icon class="search-icon" aria-hidden="true">search</mat-icon>
+    <input
+      type="search"
+      [value]="searchQuery()"
+      placeholder="Search adventures..."
+      (input)="onSearchChange($event)" />
+    @if (searchQuery()) {
+      <button class="clear-search" type="button" aria-label="Clear search" (click)="clearSearch()">
+        <mat-icon aria-hidden="true">close</mat-icon>
+      </button>
+    }
+  </label>
+
+  <div class="filters">
+    <span class="filters-label"><mat-icon aria-hidden="true">filter_alt</mat-icon> Filters:</span>
+    <button mat-stroked-button class="filter-button" [matMenuTriggerFor]="difficultyMenu">
     Difficulty{{ selectedDifficulties().length ? ' (' + selectedDifficulties().length + ')' : '' }}
   </button>
   <mat-menu #difficultyMenu="matMenu">
@@ -25,7 +44,7 @@
     }
   </mat-menu>
 
-  <button mat-stroked-button [matMenuTriggerFor]="typeMenu">
+  <button mat-stroked-button class="filter-button" [matMenuTriggerFor]="typeMenu">
     Type{{ selectedTypes().length ? ' (' + selectedTypes().length + ')' : '' }}
   </button>
   <mat-menu #typeMenu="matMenu">
@@ -39,43 +58,29 @@
       </div>
     }
   </mat-menu>
-</div>
+  </div>
 
-<p>Books loaded: {{ filteredBooks().length }}</p>
-
-@for (book of filteredBooks(); track book.id) {
-
-  <mat-card class="book-card">
-    <mat-card-header>
-      <mat-card-title>
-        {{ book.title }}
-      </mat-card-title>
-    </mat-card-header>
-
-    <mat-card-content>
-      <p>Author: {{ book.author }}</p>
-      <p>Difficulty: {{ book.difficulty }}</p>
-      <p>Type: {{ book.type }}</p>
-    </mat-card-content>
-
-    <mat-card-actions>
-      <button
-        mat-raised-button
-        color="primary"
-        (click)="startGame(book.id)">
-        Start New Game
-      </button>
-      @if (savedGamesByBookId.get(book.id); as savedGame) {
-        <button
-          mat-raised-button
-          (click)="resumeGame(savedGame.gameId)">
-          Resume Game
-        </button>
-
-      }
-    </mat-card-actions>
-
-  </mat-card>
-
-}
+  <section class="book-grid" aria-label="Adventure books">
+    @for (book of filteredBooks(); track book.id) {
+      <mat-card class="book-card">
+        <mat-card-header>
+          <mat-card-title>{{ book.title }}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p class="book-author">by {{ book.author }}</p>
+          <div class="book-details">
+            <span>{{ book.difficulty }}</span>
+            <span>{{ book.type }}</span>
+          </div>
+        </mat-card-content>
+        <mat-card-actions>
+          <button class="book-action" (click)="startGame(book.id)">Start New Game</button>
+          @if (savedGamesByBookId.get(book.id); as savedGame) {
+            <button class="book-action" (click)="resumeGame(savedGame.gameId)">Resume Game</button>
+          }
+        </mat-card-actions>
+      </mat-card>
+    }
+  </section>
+</main>
 

@@ -5,6 +5,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatIconModule } from '@angular/material/icon';
 import { GamesService } from '../../core/services/games.service';
 import { SavedGame } from '../../core/models/saved-game';
 import { Router } from '@angular/router';
@@ -12,7 +13,7 @@ import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-home',
-  imports: [MatCardModule, MatButtonModule, MatCheckboxModule, MatMenuModule],
+  imports: [MatCardModule, MatButtonModule, MatCheckboxModule, MatMenuModule, MatIconModule],
   templateUrl: './home.html',
   styleUrl: './home.scss',
 })
@@ -75,6 +76,10 @@ export class Home implements OnInit {
 
   onSearchChange(event: Event): void {
     this.searchQuery.set((event.target as HTMLInputElement).value);
+  }
+
+  clearSearch(): void {
+    this.searchQuery.set('');
   }
 
   isDifficultySelected(difficulty: string): boolean {

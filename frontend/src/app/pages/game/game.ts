@@ -4,6 +4,7 @@ import { Game as GameModel } from '../../core/models/game';
 import { GameStatus } from '../../core/models/game-status';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
@@ -11,7 +12,7 @@ import { SaveGameDialog, SaveGameDialogResult } from './save-game-dialog';
 
 @Component({
   selector: 'app-game',
-  imports: [MatCardModule, MatButtonModule, MatDialogModule],
+  imports: [MatCardModule, MatButtonModule, MatIconModule, MatDialogModule],
   templateUrl: './game.html',
   styleUrl: './game.scss',
 })
@@ -45,7 +46,7 @@ export class Game implements OnInit {
 
   backToLibrary(): void {
     this.dialog
-      .open(SaveGameDialog)
+      .open(SaveGameDialog, { autoFocus: 'dialog' })
       .afterClosed()
       .subscribe((result: SaveGameDialogResult | undefined) => {
         if (result === 'save') {
