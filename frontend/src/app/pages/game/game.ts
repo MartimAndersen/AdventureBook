@@ -7,6 +7,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { SaveGameDialog, SaveGameDialogResult } from './save-game-dialog';
 
@@ -19,27 +20,37 @@ import { SaveGameDialog, SaveGameDialogResult } from './save-game-dialog';
 export class Game implements OnInit {
   game = signal<GameModel | undefined>(undefined);
   readonly gameStatus = GameStatus;
+  private readonly gameId: string;
 
   constructor(
     private gamesService: GamesService,
     private snackBar: MatSnackBar,
     private dialog: MatDialog,
+    private route: ActivatedRoute,
     private router: Router,
-  ) {}
+  ) {
+    this.gameId = this.route.snapshot.paramMap.get('gameId') ?? '';
+  }
 
   ngOnInit(): void {
-    this.game.set(this.gamesService.currentGame);
+    if (!this.gameId) {
+      this.router.navigate(['/']);
+      return;
+    }
+
+    this.gamesService.getGame(this.gameId).subscribe((game) => {
+      this.game.set(game);
+    });
   }
 
   makeChoice(optionIndex: number): void {
-    this.gamesService.makeChoice(optionIndex).subscribe((game) => {
+    this.gamesService.makeChoice(this.gameId, optionIndex).subscribe((game) => {
       this.game.set(game);
-      this.gamesService.currentGame = game;
     });
   }
 
   saveGame(): void {
-    this.gamesService.saveGame().subscribe(() => {
+    this.gamesService.saveGame(this.gameId).subscribe(() => {
       this.showSaveSuccess();
     });
   }
@@ -50,7 +61,7 @@ export class Game implements OnInit {
       .afterClosed()
       .subscribe((result: SaveGameDialogResult | undefined) => {
         if (result === 'save') {
-          this.gamesService.saveGame().subscribe(() => {
+          this.gamesService.saveGame(this.gameId).subscribe(() => {
             this.showSaveSuccess();
             this.navigateToLibrary();
           });

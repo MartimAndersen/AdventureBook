@@ -107,18 +107,12 @@ export class Home implements OnInit {
 
   startGame(bookId: string): void {
     this.gamesService.startGame(bookId).subscribe((game) => {
-      this.gamesService.currentGame = game;
-
       this.router.navigate(['/game', game.gameId]);
     });
   }
 
 
   resumeGame(gameId: string): void {
-    this.gamesService.getGame(gameId).subscribe((game) => {
-      this.gamesService.currentGame = game;
-
-      this.router.navigate(['/game', gameId]);
-    });
+    this.router.navigate(['/game', gameId]);
   }
 }

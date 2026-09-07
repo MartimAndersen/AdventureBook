@@ -5,6 +5,7 @@ import com.martim.adventure_book.game.dto.MakeChoiceRequestDto;
 import com.martim.adventure_book.game.service.GamePlayService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/games")
@@ -13,14 +14,15 @@ public class GamePlayController {
 
     private final GamePlayService gamePlayService;
 
-    @PostMapping("/choices")
-    public GameResponseDto makeChoice(@RequestBody MakeChoiceRequestDto request) {
-        return gamePlayService.makeChoice(request.optionIndex());
+    @PostMapping("/{gameId}/choices")
+    public GameResponseDto makeChoice(@PathVariable UUID gameId,
+                                      @RequestBody MakeChoiceRequestDto request) {
+        return gamePlayService.makeChoice(gameId, request.optionIndex());
     }
 
-    @PostMapping("/save")
-    public void saveGame() {
-        gamePlayService.saveGame();
+    @PostMapping("/{gameId}/save")
+    public void saveGame(@PathVariable UUID gameId) {
+        gamePlayService.saveGame(gameId);
     }
 }
 

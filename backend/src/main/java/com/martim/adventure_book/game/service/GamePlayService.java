@@ -16,6 +16,7 @@ import com.martim.adventure_book.game.repository.SavedGameRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -26,10 +27,10 @@ public class GamePlayService {
     private final SavedGameRepository savedGameRepository;
     private final SavedGameMapper savedGameMapper;
     private final GameResponseMapper gameResponseMapper;
-    private final CurrentGameHolder currentGameHolder;
+    private final ActiveGames activeGames;
 
-    public GameResponseDto makeChoice(int optionIndex) {
-        Game game = currentGameHolder.get();
+    public GameResponseDto makeChoice(UUID gameId, int optionIndex) {
+        Game game = activeGames.get(gameId);
 
         if (game.getStatus() != GameStatus.IN_PROGRESS) {
             throw new GameAlreadyFinishedException();
@@ -52,8 +53,8 @@ public class GamePlayService {
         return gameResponseMapper.toResponse(game, book);
     }
 
-    public void saveGame() {
-        Game game = currentGameHolder.get();
+    public void saveGame(UUID gameId) {
+        Game game = activeGames.get(gameId);
         game.setUpdatedAt(LocalDateTime.now());
 
         SavedGameEntity entity = savedGameRepository.findByBookId(game.getBookId())

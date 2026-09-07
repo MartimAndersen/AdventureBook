@@ -8,7 +8,6 @@ import { Game } from '../models/game';
 })
 export class GamesService {
   private readonly apiUrl = 'http://localhost:8080/api';
-  currentGame?: Game;
 
   constructor(private http: HttpClient) {}
 
@@ -24,11 +23,11 @@ export class GamesService {
     return this.http.get<Game>(`${this.apiUrl}/games/${gameId}`);
   }
 
-  makeChoice(optionIndex: number) {
-    return this.http.post<Game>(`${this.apiUrl}/games/choices`, { optionIndex });
+  makeChoice(gameId: string, optionIndex: number) {
+    return this.http.post<Game>(`${this.apiUrl}/games/${gameId}/choices`, { optionIndex });
   }
 
-  saveGame() {
-    return this.http.post(`${this.apiUrl}/games/save`, {});
+  saveGame(gameId: string) {
+    return this.http.post<void>(`${this.apiUrl}/games/${gameId}/save`, null);
   }
 }

@@ -25,7 +25,7 @@ public class GameSetupService {
     private final SavedGameRepository savedGameRepository;
     private final SavedGameMapper savedGameMapper;
     private final GameResponseMapper gameResponseMapper;
-    private final CurrentGameHolder currentGameHolder;
+    private final ActiveGames activeGames;
 
     public GameResponseDto startGame(String bookId) {
         Book book = bookCatalog.getBook(bookId);
@@ -35,7 +35,7 @@ public class GameSetupService {
         }
         
         Game game = gameEngine.startGame(book);
-        currentGameHolder.set(game);
+        activeGames.put(game);
 
         return gameResponseMapper.toResponse(game, book);
     }
@@ -45,7 +45,6 @@ public class GameSetupService {
                 .orElseThrow(() -> new GameNotFoundException(gameId));
 
         Game game = savedGameMapper.toDomain(entity);
-        currentGameHolder.set(game);
 
         Book book = bookCatalog.getBook(game.getBookId());
 
@@ -54,6 +53,8 @@ public class GameSetupService {
                     game.getBookId()
             );
         }
+
+        activeGames.put(game);
 
         return gameResponseMapper.toResponse(game, book);
     }
