@@ -1,10 +1,13 @@
 package com.martim.adventure_book.book.service;
 
+import com.martim.adventure_book.book.domain.Book;
 import com.martim.adventure_book.book.domain.BookType;
 import com.martim.adventure_book.book.domain.Difficulty;
 import com.martim.adventure_book.book.dto.BookSummaryDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -16,6 +19,7 @@ public class BookService {
     public List<BookSummaryDto> getAllBooks() {
         return bookCatalog.getAllBooks()
                 .stream()
+                .sorted(Comparator.comparing(Book::getTitle))
                 .map(book -> new BookSummaryDto(
                         book.getId(),
                         book.getTitle(),

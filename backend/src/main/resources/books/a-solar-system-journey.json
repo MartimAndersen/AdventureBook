@@ -1,0 +1,190 @@
+{
+  "title": "A Solar System Journey",
+  "author": "Martim Andersen",
+  "difficulty": "MEDIUM",
+  "type": "SCI_FI",
+  "sections": [
+    {
+      "id": 1,
+      "text": "Michael launches from Earth. His goal is to reach Mars.",
+      "type": "BEGIN",
+      "options": [
+        {
+          "description": "Fly directly toward the Moon",
+          "gotoId": 10
+        },
+        {
+          "description": "Take a risky shortcut through an asteroid field",
+          "gotoId": 20,
+          "consequence": {
+            "type": "LOSE_HEALTH",
+            "value": 4,
+            "text": "Small rocks damage the ship."
+          }
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "text": "Michael lands on the Moon. Fuel reserves are getting low.",
+      "type": "NODE",
+      "options": [
+        {
+          "description": "Wait for the solar panels to recharge",
+          "gotoId": 30,
+          "consequence": {
+            "type": "GAIN_HEALTH",
+            "value": 2,
+            "text": "The ship systems stabilize while charging."
+          }
+        },
+        {
+          "description": "Leave immediately",
+          "gotoId": 40,
+          "consequence": {
+            "type": "LOSE_HEALTH",
+            "value": 2,
+            "text": "The engines struggle without enough power."
+          }
+        }
+      ]
+    },
+    {
+      "id": 20,
+      "text": "The ship survives the asteroid field but suffers significant damage.",
+      "type": "NODE",
+      "options": [
+        {
+          "description": "Attempt emergency repairs",
+          "gotoId": 30,
+          "consequence": {
+            "type": "GAIN_HEALTH",
+            "value": 1,
+            "text": "Some systems are repaired."
+          }
+        },
+        {
+          "description": "Continue without repairs",
+          "gotoId": 50,
+          "consequence": {
+            "type": "LOSE_HEALTH",
+            "value": 3,
+            "text": "The damage worsens."
+          }
+        }
+      ]
+    },
+    {
+      "id": 30,
+      "text": "With energy restored, Michael leaves the Moon and approaches Venus.",
+      "type": "NODE",
+      "options": [
+        {
+          "description": "Visit Venus",
+          "gotoId": 60
+        },
+        {
+          "description": "Skip Venus and head toward Mars",
+          "gotoId": 70
+        }
+      ]
+    },
+    {
+      "id": 40,
+      "text": "The ship drifts slowly through space and encounters a small ET vessel.",
+      "type": "NODE",
+      "options": [
+        {
+          "description": "Greet the ETs",
+          "gotoId": 80,
+          "consequence": {
+            "type": "GAIN_HEALTH",
+            "value": 4,
+            "text": "The ETs share supplies."
+          }
+        },
+        {
+          "description": "Ignore them",
+          "gotoId": 50
+        }
+      ]
+    },
+    {
+      "id": 50,
+      "text": "A solar storm strikes the ship.",
+      "type": "NODE",
+      "options": [
+        {
+          "description": "Hide behind a nearby asteroid",
+          "gotoId": 70,
+          "consequence": {
+            "type": "LOSE_HEALTH",
+            "value": 2,
+            "text": "The ship is partially protected."
+          }
+        },
+        {
+          "description": "Fly through the storm",
+          "gotoId": 90,
+          "consequence": {
+            "type": "LOSE_HEALTH",
+            "value": 12,
+            "text": "Severe damage overwhelms the ship."
+          }
+        }
+      ]
+    },
+    {
+      "id": 60,
+      "text": "Venus is beautiful but dangerous.",
+      "type": "NODE",
+      "options": [
+        {
+          "description": "Study the atmosphere",
+          "gotoId": 70,
+          "consequence": {
+            "type": "GAIN_HEALTH",
+            "value": 2,
+            "text": "Useful scientific data improves navigation."
+          }
+        }
+      ]
+    },
+    {
+      "id": 70,
+      "text": "Mars is finally visible ahead.",
+      "type": "NODE",
+      "options": [
+        {
+          "description": "Attempt landing",
+          "gotoId": 100
+        },
+        {
+          "description": "Take a longer approach route",
+          "gotoId": 80
+        }
+      ]
+    },
+    {
+      "id": 80,
+      "text": "The ETs escort Michael safely through a busy region of space.",
+      "type": "NODE",
+      "options": [
+        {
+          "description": "Continue to Mars",
+          "gotoId": 100
+        }
+      ]
+    },
+    {
+      "id": 90,
+      "text": "The ship is destroyed by the solar storm.",
+      "type": "END"
+    },
+    {
+      "id": 100,
+      "text": "Michael lands safely on Mars and completes the mission.",
+      "type": "END"
+    }
+  ]
+}

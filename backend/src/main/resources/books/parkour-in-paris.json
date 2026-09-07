@@ -1,0 +1,218 @@
+{
+  "title": "Parkour in Paris",
+  "author": "Martim Andersen",
+  "difficulty": "MEDIUM",
+  "type": "ADVENTURE",
+  "sections": [
+    {
+      "id": 1,
+      "text": "Oscar arrives in Paris for a day of parkour. From street level he spots several buildings that could lead him across the city rooftops.",
+      "type": "BEGIN",
+      "options": [
+        {
+          "description": "Climb a nearby building",
+          "gotoId": 10
+        },
+        {
+          "description": "Visit a bakery first",
+          "gotoId": 20
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "text": "Oscar reaches a rooftop overlooking Paris.",
+      "type": "NODE",
+      "options": [
+        {
+          "description": "Jump to the next roof",
+          "gotoId": 30
+        },
+        {
+          "description": "Attempt a stylish backflip",
+          "gotoId": 40
+        },
+        {
+          "description": "Climb back down",
+          "gotoId": 20
+        }
+      ]
+    },
+    {
+      "id": 20,
+      "text": "A bakery displays fresh pastries and bread.",
+      "type": "NODE",
+      "options": [
+        {
+          "description": "Eat a croissant",
+          "gotoId": 10,
+          "consequence": {
+            "type": "GAIN_HEALTH",
+            "value": 3,
+            "text": "The croissant gives Oscar extra energy."
+          }
+        },
+        {
+          "description": "Eat a baguette",
+          "gotoId": 10,
+          "consequence": {
+            "type": "GAIN_HEALTH",
+            "value": 2,
+            "text": "The baguette restores some energy."
+          }
+        },
+        {
+          "description": "Eat a large chocolate dessert",
+          "gotoId": 10,
+          "consequence": {
+            "type": "LOSE_HEALTH",
+            "value": 1,
+            "text": "Oscar feels a bit sluggish after eating too much chocolate."
+          }
+        }
+      ]
+    },
+    {
+      "id": 30,
+      "text": "Oscar lands on the next roof but slips slightly.",
+      "type": "NODE",
+      "options": [
+        {
+          "description": "Keep running across the rooftops",
+          "gotoId": 50
+        },
+        {
+          "description": "Take a difficult long jump",
+          "gotoId": 60,
+          "consequence": {
+            "type": "LOSE_HEALTH",
+            "value": 3,
+            "text": "The landing is rough."
+          }
+        }
+      ]
+    },
+    {
+      "id": 40,
+      "text": "The backflip looks impressive, but Oscar lands awkwardly.",
+      "type": "NODE",
+      "options": [
+        {
+          "description": "Continue carefully",
+          "gotoId": 50,
+          "consequence": {
+            "type": "LOSE_HEALTH",
+            "value": 2,
+            "text": "Oscar twists an ankle."
+          }
+        },
+        {
+          "description": "Try another trick immediately",
+          "gotoId": 70,
+          "consequence": {
+            "type": "LOSE_HEALTH",
+            "value": 5,
+            "text": "The second trick goes badly."
+          }
+        }
+      ]
+    },
+    {
+      "id": 50,
+      "text": "Oscar reaches a beautiful rooftop garden with a view of the Eiffel Tower.",
+      "type": "NODE",
+      "options": [
+        {
+          "description": "Rest briefly and enjoy the view",
+          "gotoId": 80,
+          "consequence": {
+            "type": "GAIN_HEALTH",
+            "value": 2,
+            "text": "A short rest restores energy."
+          }
+        },
+        {
+          "description": "Continue without stopping",
+          "gotoId": 90
+        }
+      ]
+    },
+    {
+      "id": 60,
+      "text": "Oscar barely clears the gap between buildings.",
+      "type": "NODE",
+      "options": [
+        {
+          "description": "Cross a narrow ledge",
+          "gotoId": 90,
+          "consequence": {
+            "type": "LOSE_HEALTH",
+            "value": 2,
+            "text": "The ledge scrape hurts."
+          }
+        },
+        {
+          "description": "Climb down to street level",
+          "gotoId": 20
+        }
+      ]
+    },
+    {
+      "id": 70,
+      "text": "Oscar falls from a low rooftop and hits the ground.",
+      "type": "NODE",
+      "options": [
+        {
+          "description": "Get up and continue",
+          "gotoId": 20,
+          "consequence": {
+            "type": "LOSE_HEALTH",
+            "value": 4,
+            "text": "The fall leaves Oscar badly bruised."
+          }
+        }
+      ]
+    },
+    {
+      "id": 80,
+      "text": "A maintenance staircase leads to the highest rooftop in the area.",
+      "type": "NODE",
+      "options": [
+        {
+          "description": "Climb to the highest rooftop",
+          "gotoId": 100
+        }
+      ]
+    },
+    {
+      "id": 90,
+      "text": "Oscar spots a final sequence of rooftops leading toward a famous Paris landmark.",
+      "type": "NODE",
+      "options": [
+        {
+          "description": "Complete the final rooftop route",
+          "gotoId": 100
+        },
+        {
+          "description": "Take a dangerous shortcut",
+          "gotoId": 110,
+          "consequence": {
+            "type": "LOSE_HEALTH",
+            "value": 12,
+            "text": "The shortcut is much more dangerous than expected."
+          }
+        }
+      ]
+    },
+    {
+      "id": 100,
+      "text": "Oscar successfully completes his parkour route across Paris and finishes the adventure.",
+      "type": "END"
+    },
+    {
+      "id": 110,
+      "text": "Oscar crashes during the shortcut attempt and cannot continue.",
+      "type": "END"
+    }
+  ]
+}
