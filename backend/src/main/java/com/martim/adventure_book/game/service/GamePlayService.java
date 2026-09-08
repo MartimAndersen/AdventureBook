@@ -15,6 +15,8 @@ import com.martim.adventure_book.game.mapper.SavedGameMapper;
 import com.martim.adventure_book.game.repository.SavedGameRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -48,11 +50,11 @@ public class GamePlayService {
         game.setCurrentSectionId(chosenOption.gotoId());
         Section nextSection = book.getSection(chosenOption.gotoId());
         gameEngine.updateStatus(game, nextSection);
-        game.setUpdatedAt(LocalDateTime.now());
 
         return gameResponseMapper.toResponse(game, book);
     }
 
+    @Transactional
     public void saveGame(UUID gameId) {
         Game game = activeGames.get(gameId);
         game.setUpdatedAt(LocalDateTime.now());
