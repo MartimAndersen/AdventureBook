@@ -4,6 +4,7 @@ import com.martim.adventure_book.game.dto.GameResponseDto;
 import com.martim.adventure_book.game.dto.SavedGameSummaryDto;
 import com.martim.adventure_book.game.dto.StartGameRequestDto;
 import com.martim.adventure_book.game.service.GameSetupService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -16,7 +17,7 @@ public class GameSetupController {
     private final GameSetupService gameSetupService;
 
     @PostMapping("/api/games")
-    public GameResponseDto startGame(@RequestBody StartGameRequestDto request) {
+    public GameResponseDto startGame(@Valid @RequestBody StartGameRequestDto request) {
         return gameSetupService.startGame(request.bookId());
     }
 

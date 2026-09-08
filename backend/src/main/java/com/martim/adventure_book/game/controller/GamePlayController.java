@@ -3,6 +3,7 @@ package com.martim.adventure_book.game.controller;
 import com.martim.adventure_book.game.dto.GameResponseDto;
 import com.martim.adventure_book.game.dto.MakeChoiceRequestDto;
 import com.martim.adventure_book.game.service.GamePlayService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import java.util.UUID;
@@ -16,7 +17,7 @@ public class GamePlayController {
 
     @PostMapping("/{gameId}/choices")
     public GameResponseDto makeChoice(@PathVariable UUID gameId,
-                                      @RequestBody MakeChoiceRequestDto request) {
+                                      @Valid @RequestBody MakeChoiceRequestDto request) {
         return gamePlayService.makeChoice(gameId, request.optionIndex());
     }
 
