@@ -10,5 +10,6 @@ public enum BookType {
     SLICE_OF_LIFE,
     HISTORICAL,
     SURVIVAL,
-    COMEDY
+    COMEDY,
+    SPORT
 }
