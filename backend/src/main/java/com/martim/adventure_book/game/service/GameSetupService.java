@@ -5,7 +5,6 @@ import com.martim.adventure_book.book.service.BookCatalog;
 import com.martim.adventure_book.common.exception.BookNotFoundException;
 import com.martim.adventure_book.common.exception.GameNotFoundException;
 import com.martim.adventure_book.game.domain.Game;
-import com.martim.adventure_book.game.domain.SavedGameEntity;
 import com.martim.adventure_book.game.dto.GameResponseDto;
 import com.martim.adventure_book.game.dto.SavedGameSummaryDto;
 import com.martim.adventure_book.game.mapper.GameResponseMapper;
@@ -41,10 +40,10 @@ public class GameSetupService {
     }
 
     public GameResponseDto resumeGame(UUID gameId) {
-        SavedGameEntity entity = savedGameRepository.findById(gameId)
-                .orElseThrow(() -> new GameNotFoundException(gameId));
-
-        Game game = savedGameMapper.toDomain(entity);
+        Game game = activeGames.find(gameId)
+                .orElseGet(() -> savedGameRepository.findById(gameId)
+                        .map(savedGameMapper::toDomain)
+                        .orElseThrow(() -> new GameNotFoundException(gameId)));
 
         Book book = bookCatalog.getBook(game.getBookId());
 

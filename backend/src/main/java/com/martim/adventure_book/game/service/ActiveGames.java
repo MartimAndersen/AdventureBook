@@ -4,6 +4,7 @@ import com.martim.adventure_book.common.exception.GameNotFoundException;
 import com.martim.adventure_book.game.domain.Game;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -22,6 +23,10 @@ public class ActiveGames {
             throw new GameNotFoundException(gameId);
         }
         return game;
+    }
+
+    public Optional<Game> find(UUID gameId) {
+        return Optional.ofNullable(activeGames.get(gameId));
     }
 }
 
