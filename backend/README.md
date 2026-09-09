@@ -37,3 +37,12 @@ Start PostgreSQL first, then run the backend with the Maven Wrapper:
 docker compose up -d
 .\mvnw.cmd spring-boot:run
 ```
+
+## Start the frontend
+
+cd ../frontend
+npm install
+npm start
+
+The frontend will be available at:
+http://localhost:4200
